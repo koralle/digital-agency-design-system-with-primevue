@@ -1,0 +1,43 @@
+# Dependencies
+node_modules
+
+# Build outputs
+dist
+build
+out
+
+# Testing
+coverage
+
+# Environment variables
+.env*
+
+# Logs
+pnpm-debug.log*
+
+# Editor directories and files
+.vscode/*
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.sublime-*
+
+# Cache
+.eslintcache
+.stylelintcache
+
+# Temporary files
+.temp
+.tmp
+.DS_Store
+Thumbs.db
+
+# Package manager specific
+.pnpm-store/
+
+# Storybook
+storybook-static

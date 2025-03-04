@@ -1,0 +1,13 @@
+{
+  "name": "@koralle/digital-agency-design-system-with-primevue",
+  "version": "0.1.0",
+  "description": "",
+  "packageManager": "pnpm@10.5.2",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "pnpm": "^10.5.2"
+  }
+}
