@@ -1,0 +1,12 @@
+{
+  "name": "theme",
+  "version": "0.1.0",
+  "description": "",
+  "private": true,
+  "scripts": {},
+  "keywords": [
+    "tailwindcss"
+  ],
+  "author": "",
+  "license": "MIT"
+}
