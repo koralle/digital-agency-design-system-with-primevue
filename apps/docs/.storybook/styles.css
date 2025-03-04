@@ -5,4 +5,4 @@
 @import '@digital-agency-design-system-with-primevue/theme/preflight' layer(base);
 @import '@digital-agency-design-system-with-primevue/theme/design-tokens' layer(theme);
 
-@source '@digital-agency-design-system-with-primevue/components';
+@source '../node_modules/@digital-agency-design-system-with-primevue/components';
