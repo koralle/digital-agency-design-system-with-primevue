@@ -11,7 +11,8 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "vue": "^3.5.13"
+    "vue": "^3.5.13",
+    "theme": "workspace:*"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.5",

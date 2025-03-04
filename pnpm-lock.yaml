@@ -24,6 +24,9 @@ importers:
 
   apps/docs:
     dependencies:
+      theme:
+        specifier: workspace:*
+        version: link:../../packages/theme
       vue:
         specifier: ^3.5.13
         version: 3.5.13(typescript@5.8.2)
