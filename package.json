@@ -9,5 +9,8 @@
   "license": "MIT",
   "devDependencies": {
     "pnpm": "^10.5.2"
+  },
+  "dependencies": {
+    "tailwindcss": "^4.0.9"
   }
 }

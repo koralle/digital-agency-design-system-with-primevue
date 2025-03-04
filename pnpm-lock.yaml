@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      tailwindcss:
+        specifier: ^4.0.9
+        version: 4.0.9
     devDependencies:
       pnpm:
         specifier: ^10.5.2
@@ -23,6 +27,11 @@ packages:
     engines: {node: '>=18.12'}
     hasBin: true
 
+  tailwindcss@4.0.9:
+    resolution: {integrity: sha512-12laZu+fv1ONDRoNR9ipTOpUD7RN9essRVkX36sjxuRUInpN7hIiHN4lBd/SIFjbISvnXzp8h/hXzmU8SQQYhw==}
+
 snapshots:
 
   pnpm@10.5.2: {}
+
+  tailwindcss@4.0.9: {}
