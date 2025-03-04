@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "description": "",
   "private": true,
+  "exports": {
+    "./design-tokens": "./design-tokens.css",
+    "./preflight": "./preflight.css"
+  },
   "scripts": {},
   "keywords": [
     "tailwindcss"
