@@ -27,7 +27,10 @@ importers:
 
   apps/docs:
     dependencies:
-      theme:
+      '@digital-agency-design-system-with-primevue/components':
+        specifier: workspace:*
+        version: link:../../packages/components
+      '@digital-agency-design-system-with-primevue/theme':
         specifier: workspace:*
         version: link:../../packages/theme
       vue:

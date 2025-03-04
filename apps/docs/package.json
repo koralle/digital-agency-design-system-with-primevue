@@ -1,5 +1,5 @@
 {
-  "name": "docs",
+  "name": "@digital-agency-design-system-with-primevue/docs",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,7 +11,8 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "theme": "workspace:*",
+    "@digital-agency-design-system-with-primevue/theme": "workspace:*",
+    "@digital-agency-design-system-with-primevue/components": "workspace:*",
     "vue": "^3.5.13"
   },
   "devDependencies": {
