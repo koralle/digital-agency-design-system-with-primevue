@@ -40,6 +40,9 @@ importers:
       '@chromatic-com/storybook':
         specifier: ^3.2.5
         version: 3.2.5(react@19.0.0)(storybook@8.6.3(prettier@3.5.3))
+      '@storybook/addon-actions':
+        specifier: ^8.6.3
+        version: 8.6.3(storybook@8.6.3(prettier@3.5.3))
       '@storybook/addon-essentials':
         specifier: ^8.6.3
         version: 8.6.3(@types/react@19.0.10)(storybook@8.6.3(prettier@3.5.3))
