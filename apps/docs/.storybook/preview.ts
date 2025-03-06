@@ -3,11 +3,11 @@ import { setup } from '@storybook/vue3';
 import './styles.css';
 import PrimeVue from 'primevue/config';
 
-setup((app) => {
+setup(app => {
   app.use(PrimeVue, {
-    unstyled: true
-  })
-})
+    unstyled: true,
+  });
+});
 
 const preview: Preview = {
   parameters: {

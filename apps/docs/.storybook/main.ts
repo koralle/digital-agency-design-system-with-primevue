@@ -14,6 +14,7 @@ const config: StorybookConfig = {
       builder: {
         viteConfigPath: 'vite.config.ts',
       },
+      docgen: 'vue-component-meta',
     },
   },
 };
