@@ -3,6 +3,7 @@ import { Button } from '@digital-agency-design-system-with-primevue/components/b
 import type { ButtonProps } from '@digital-agency-design-system-with-primevue/components/button';
 import { within, expect, userEvent, fn, waitFor } from '@storybook/test';
 import { action } from '@storybook/addon-actions';
+import Add from '~icons/mdi/add';
 
 const meta = {
   title: 'Components / Button',
@@ -47,8 +48,9 @@ type Story = StoryObj<typeof Button>;
 export const Primary = {
   args: {
     label: 'プライマリボタン',
-    variant: 'primary',
+    variant: 'tertiary',
     onClick: fn(),
+    disabled: false,
   },
   play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
@@ -114,4 +116,33 @@ export const Large = {
     label: '大サイズ',
     size: 'large',
   },
+} satisfies Story;
+
+export const WithIcon = {
+  args: {
+    label: '追加',
+    size: 'large',
+    variant: 'primary',
+    disabled: false,
+    onClick: action('on-click'),
+  },
+  render: ({
+    label,
+    size,
+    variant,
+    disabled,
+    onClick,
+  }: Pick<ButtonProps, 'label' | 'size' | 'variant' | 'disabled' | 'onClick'>) => ({
+    components: { Button, Add },
+    setup() {
+      return { label, size, variant, disabled, onClick };
+    },
+    template: `
+      <Button :label="label" :size="size" :variant="variant" :disabled="disabled" @click="onClick">
+        <template #icon>
+          <Add />
+        </template>
+      </Button>
+    `,
+  }),
 } satisfies Story;
