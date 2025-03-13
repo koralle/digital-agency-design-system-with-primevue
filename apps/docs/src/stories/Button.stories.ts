@@ -3,7 +3,7 @@ import { Button } from '@digital-agency-design-system-with-primevue/components/b
 import type { ButtonProps } from '@digital-agency-design-system-with-primevue/components/button';
 import { within, expect, userEvent, fn, waitFor } from '@storybook/test';
 import { action } from '@storybook/addon-actions';
-import Add from '~icons/mdi/add';
+import { Icon } from '@digital-agency-design-system-with-primevue/components/icon';
 
 const meta = {
   title: 'Components / Button',
@@ -133,14 +133,14 @@ export const WithIcon = {
     disabled,
     onClick,
   }: Pick<ButtonProps, 'label' | 'size' | 'variant' | 'disabled' | 'onClick'>) => ({
-    components: { Button, Add },
+    components: { Button, Icon },
     setup() {
       return { label, size, variant, disabled, onClick };
     },
     template: `
       <Button :label="label" :size="size" :variant="variant" :disabled="disabled" @click="onClick">
         <template #icon>
-          <Add />
+          <Icon name="Home" class="text-current w-[1.5em] h-[1.5em]" />
         </template>
       </Button>
     `,
