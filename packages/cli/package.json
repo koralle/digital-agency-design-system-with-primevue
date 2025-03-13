@@ -1,0 +1,11 @@
+{
+  "name": "@digital-agency-design-system-with-primevue/cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.ts",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "packageManager": "pnpm@10.5.2"
+}
