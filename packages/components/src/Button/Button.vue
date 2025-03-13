@@ -1,12 +1,16 @@
 <script setup lang="ts">
-import Button from 'primevue/button';
-import type { ButtonProps } from './props';
-import { computed } from 'vue';
 import { clsx } from 'clsx';
+import Button from 'primevue/button';
+import { computed } from 'vue';
+import type { ButtonEmits, ButtonPassThroughOptions, ButtonProps, ButtonSlots } from './props';
 
 const { size = 'medium', variant = 'primary', ...rest } = defineProps<ButtonProps>();
+defineSlots<ButtonSlots>();
+defineEmits<ButtonEmits>();
 
-const sizeClass = computed(() => {
+type CSSClassName = string
+
+const sizeClass = computed<CSSClassName>(() => {
   switch (size) {
     case 'x-small':
       return clsx([
@@ -25,7 +29,7 @@ const sizeClass = computed(() => {
   }
 });
 
-const variantClass = computed(() => {
+const variantClass = computed<{ [key in keyof Pick<ButtonPassThroughOptions, 'root' | 'icon' | 'label' | 'loadingIcon'>]: CSSClassName }>(() => {
   switch (variant) {
     case 'primary':
       return {
@@ -103,8 +107,16 @@ const variantClass = computed(() => {
     }"
     :rest
   >
-    <template v-for="(_, name) in $slots" :key="name" #[name]="slotData">
-      <slot :name="name" v-bind="slotData || {}"></slot>
+    <template #icon="scope">
+      <slot name="icon" v-bind="scope" />
+    </template>
+
+    <template #default="scope">
+      <slot name="default" v-bind="scope" />
+    </template>
+
+    <template #loadingicon="scope">
+      <slot name="loadingicon" v-bind="scope" />
     </template>
   </Button>
 </template>

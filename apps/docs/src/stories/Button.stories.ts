@@ -146,3 +146,32 @@ export const WithIcon = {
     `,
   }),
 } satisfies Story;
+
+export const AsChild = {
+  args: {
+    label: 'GitHub',
+    size: 'medium',
+    variant: 'primary',
+    disabled: false,
+    onClick: action('on-click'),
+  },
+  render: ({
+    label,
+    size,
+    variant,
+    disabled,
+    onClick,
+  }: Pick<ButtonProps, 'label' | 'size' | 'variant' | 'disabled' | 'onClick'>) => ({
+    components: { Button },
+    setup() {
+      return { label, size, variant, disabled, onClick };
+    },
+    template: `
+      <Button as-child :label="label" :size="size" :variant="variant" :disabled="disabled" @click="onClick">
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+          <span>GitHub</span>
+        </a>
+      </Button>
+    `,
+  }),
+} satisfies Story;

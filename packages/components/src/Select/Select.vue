@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import Select from 'primevue/select';
-import type { SelectProps } from './props';
 import { computed } from 'vue';
+import type { SelectEmits, SelectProps, SelectSlots } from './props';
 
 const { size = 'medium', ...rest } = defineProps<SelectProps>();
+defineSlots<SelectSlots>();
+defineEmits<SelectEmits>();
 
 const sizeClass = computed(() => {
   switch (size) {
@@ -76,5 +78,57 @@ const sizeClass = computed(() => {
     }"
     checkmark
     :rest
-  />
+  >
+    <template #value="scope">
+      <slot name="value" v-bind="scope" />
+    </template>
+
+    <template #header="scope">
+      <slot name="header" v-bind="scope" />
+    </template>
+
+    <template #footer="scope">
+      <slot name="footer" v-bind="scope" />
+    </template>
+
+    <template #option="scope">
+      <slot name="option" v-bind="scope" />
+    </template>
+
+    <template #optiongroup="scope">
+      <slot name="optiongroup" v-bind="scope" />
+    </template>
+
+    <template #emptyfilter>
+      <slot name="emptyfilter" />
+    </template>
+
+    <template #empty>
+      <slot name="empty" />
+    </template>
+
+    <template #content="scope">
+      <slot name="content" v-bind="scope" />
+    </template>
+
+    <template #loader="scope">
+      <slot name="loader" v-bind="scope" />
+    </template>
+
+    <template #clearicon="scope">
+      <slot name="clearicon" v-bind="scope" />
+    </template>
+
+    <template #dropdownicon="scope">
+      <slot name="dropdownicon" v-bind="scope" />
+    </template>
+
+    <template #loadingicon="scope">
+      <slot name="loadingicon" v-bind="scope" />
+    </template>
+
+    <template #filtericon="scope">
+      <slot name="filtericon" v-bind="scope" />
+    </template>
+  </Select>
 </template>

@@ -43,7 +43,8 @@ const meta: Meta<typeof Select> = {
       "選択肢3",
     ],
     placeholder: '選択してください',
-    modelValue: null,
+    modelValue: '選択肢1',
+    invalid: false,
   } satisfies SelectProps,
 };
 
