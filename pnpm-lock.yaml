@@ -100,6 +100,9 @@ importers:
       storybook:
         specifier: ^8.6.6
         version: 8.6.6(prettier@3.5.3)
+      svgo:
+        specifier: ^3.3.2
+        version: 3.3.2
       typescript:
         specifier: ^5.8.2
         version: 5.8.2
