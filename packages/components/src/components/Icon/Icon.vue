@@ -4,7 +4,7 @@ import type { IconProps } from './props';
 
 const { name } = defineProps<IconProps>();
 
-const Icon = defineAsyncComponent(() => import(`../assets/${name}.svg`));
+const Icon = defineAsyncComponent(() => import(`../../assets/${name}.svg`));
 
 </script>
 

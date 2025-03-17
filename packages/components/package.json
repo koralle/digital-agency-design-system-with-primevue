@@ -5,10 +5,10 @@
   "private": true,
   "main": "src/index.ts",
   "exports": {
-    "./button": "./src/Button/index.ts",
-    "./input-text": "./src/InputText/index.ts",
-    "./select": "./src/Select/index.ts",
-    "./icon": "./src/Icon/index.ts"
+    "./button": "./src/components/Button/index.ts",
+    "./input-text": "./src/components/InputText/index.ts",
+    "./select": "./src/components/Select/index.ts",
+    "./icon": "./src/components/Icon/index.ts"
   },
   "scripts": {},
   "keywords": [],
