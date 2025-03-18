@@ -49,6 +49,6 @@ const textCount = computed(() => modelValue?.length ?? 0);
         className,
       ]"
     />
-    <span class="justify-self-end">{{ textCount }} / {{ maxlength }}</span>
+    <span class="text-solid-gray-900 justify-self-end">{{ textCount }} / {{ maxlength }}</span>
   </div>
 </template>

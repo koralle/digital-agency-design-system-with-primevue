@@ -98,3 +98,16 @@ export const Default: Story = {
     modelValue: ''
   },
 };
+
+export const Disabled: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const textarea = canvas.getByRole('textbox');
+
+    expect(textarea).toBeDisabled();
+  },
+  args: {
+    modelValue: 'disabled',
+    disabled: true,
+  } satisfies TextareaProps,
+};
