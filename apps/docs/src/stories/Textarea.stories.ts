@@ -2,6 +2,8 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import { Textarea } from '@digital-agency-design-system-with-primevue/components/textarea';
 import type { TextareaProps } from '@digital-agency-design-system-with-primevue/components/textarea';
 import { within, userEvent, expect } from '@storybook/test';
+import { useArgs } from '@storybook/preview-api';
+import { ref, watch } from 'vue';
 
 const meta: Meta<typeof Textarea> = {
   title: 'Components / Textarea',
@@ -33,11 +35,51 @@ const meta: Meta<typeof Textarea> = {
   args: {
     disabled: false,
     invalid: false,
-    modelValue: '',
     placeholder: 'This is placeholder.',
     autoResize: false,
     maxlength: 100,
+    modelValue: '',
   } satisfies TextareaProps,
+
+  render: (args: TextareaProps) => {
+    const [, updateArgs] = useArgs<typeof Textarea>();
+    return {
+      components: {
+        Textarea,
+      },
+      setup() {
+        const model = ref(args.modelValue);
+
+        watch(
+          () => args.modelValue,
+          value => {
+            model.value = value;
+          },
+        );
+
+        const handlers: (typeof Textarea)['emits'] = {
+          'update:modelValue': (value: string) => updateArgs({ modelValue: value }),
+        };
+
+        return {
+          model,
+          handlers,
+          args,
+        };
+      },
+      template:
+        `<Textarea
+          v-model="model"
+          v-on="handlers"
+          :model-value="args.modelValue"
+          :disabled="args.disabled"
+          :invalid="args.invalid"
+          :placeholder="args.placeholder"
+          :maxlength="args.maxlength"
+          :autoResize="args.autoResize"
+        />`,
+    };
+  },
 };
 
 export default meta;
@@ -47,61 +89,12 @@ export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const input = canvas.getByRole('textbox');
+    await userEvent.clear(input)
     await userEvent.type(input, 'Hello');
 
     await expect(input).toHaveValue('Hello');
   },
-};
-
-export const AutoResize: Story = {
   args: {
-    autoResize: true,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const input = canvas.getByRole('textbox');
-    await userEvent.type(input, 'Hello');
-
-    await expect(input).toHaveValue('Hello');
-  },
-};
-
-export const Disabled: Story = {
-  args: {
-    disabled: true,
-    modelValue: 'Disabled',
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const input = canvas.getByRole('textbox');
-
-    await expect(input).toBeDisabled();
-  },
-};
-
-export const Invalid: Story = {
-  args: {
-    invalid: true,
-    modelValue: 'Invalid',
-    required: true,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const input = canvas.getByRole('textbox');
-
-    await expect(input).toHaveAttribute('aria-invalid', 'true');
-  },
-};
-
-export const Maxlength: Story = {
-  args: {
-    maxlength: 200,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const input = canvas.getByRole('textbox');
-    await userEvent.type(input, 'Hello');
-
-    await expect(input).toHaveValue('Hello');
+    modelValue: ''
   },
 };

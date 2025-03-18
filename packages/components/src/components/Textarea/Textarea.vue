@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import Textarea from 'primevue/textarea';
-import type { TextareaProps } from './props';
-import { useId } from 'vue';
+import type { TextareaProps, TextareaEmits } from './props';
+import { computed, useId } from 'vue';
 
 const {
   id = useId(),
   class: className,
-  modelValue,
+  modelValue = '',
+  defaultValue = '',
   maxlength = 100,
   disabled,
   invalid = false,
@@ -15,14 +16,24 @@ const {
   placeholder = '',
 } = defineProps<TextareaProps>();
 
+const emit = defineEmits<TextareaEmits>();
+
+const handleInput = (e: Event) => {
+  const value = (e.target as HTMLTextAreaElement).value;
+  emit('update:modelValue', value);
+};
+
+const textCount = computed(() => modelValue?.length ?? 0);
 </script>
 
 <template>
   <div class="grid grid-rows-[1fr_max-content] gap-[0.5em]">
     <Textarea
-      :id="id"
-      :modelValue
       unstyled
+      :id="id"
+      :default-value="defaultValue"
+      :model-value="modelValue"
+      @input="handleInput"
       :maxlength="maxlength"
       :disabled="disabled"
       :invalid="invalid"
@@ -38,6 +49,6 @@ const {
         className,
       ]"
     />
-    <span class="justify-self-end">{{ modelValue?.length ?? 0 }} / {{ maxlength }}</span>
+    <span class="justify-self-end">{{ textCount }} / {{ maxlength }}</span>
   </div>
 </template>
