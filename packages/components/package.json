@@ -8,7 +8,9 @@
     "./button": "./src/components/Button/index.ts",
     "./input-text": "./src/components/InputText/index.ts",
     "./select": "./src/components/Select/index.ts",
-    "./icon": "./src/components/Icon/index.ts"
+    "./icon": "./src/components/Icon/index.ts",
+    "./checkbox": "./src/components/Checkbox/index.ts",
+    "./textarea": "./src/components/Textarea/index.ts"
   },
   "scripts": {},
   "keywords": [],

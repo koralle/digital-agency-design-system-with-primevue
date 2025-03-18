@@ -1,5 +1,11 @@
-import type { TextareaProps as PrimeTextareaProps } from 'primevue/textarea';
-
-export interface TextareaProps extends /* @vue-ignore */ Omit<PrimeTextareaProps, 'size' | 'unstyled'> {
-  size?: 'small' | 'medium' | 'large';
+export interface TextareaProps {
+  id?: string
+  class?: any
+  modelValue?: string | null
+  maxlength?: number
+  disabled?: boolean
+  invalid?: boolean
+  rows?: number
+  autoResize?: boolean
+  placeholder?: string
 }
