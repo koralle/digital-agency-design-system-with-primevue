@@ -52,6 +52,9 @@ importers:
       '@storybook/addon-essentials':
         specifier: ^8.6.7
         version: 8.6.7(@types/react@19.0.10)(storybook@8.6.7(prettier@3.5.3))
+      '@storybook/addon-mdx-gfm':
+        specifier: ^8.6.7
+        version: 8.6.7(storybook@8.6.7(prettier@3.5.3))
       '@storybook/addon-onboarding':
         specifier: ^8.6.7
         version: 8.6.7(storybook@8.6.7(prettier@3.5.3))
@@ -710,6 +713,11 @@ packages:
 
   '@storybook/addon-highlight@8.6.7':
     resolution: {integrity: sha512-4KE1RF4XfqII7XrJPgf/1W0t0EWRKmik5Rrpb6WofXfgZ2QYzLFnyESjf67/g2TMgDnle2drfa/pt5tGV4+I2Q==}
+    peerDependencies:
+      storybook: ^8.6.7
+
+  '@storybook/addon-mdx-gfm@8.6.7':
+    resolution: {integrity: sha512-IfGgPnOMq51yBpnaY2w5hlm4pBgIMig61vsigqySU7KKFY6qxD/LcIJAxOPh2s9dLhYGYDrO0hFGR9fQ7Niu5A==}
     peerDependencies:
       storybook: ^8.6.7
 
@@ -3374,6 +3382,14 @@ snapshots:
     dependencies:
       '@storybook/global': 5.0.0
       storybook: 8.6.7(prettier@3.5.3)
+
+  '@storybook/addon-mdx-gfm@8.6.7(storybook@8.6.7(prettier@3.5.3))':
+    dependencies:
+      remark-gfm: 4.0.1
+      storybook: 8.6.7(prettier@3.5.3)
+      ts-dedent: 2.2.0
+    transitivePeerDependencies:
+      - supports-color
 
   '@storybook/addon-measure@8.6.7(storybook@8.6.7(prettier@3.5.3))':
     dependencies:
