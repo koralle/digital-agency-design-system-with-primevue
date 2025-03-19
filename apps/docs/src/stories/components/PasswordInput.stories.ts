@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { PasswordInput } from '@digital-agency-design-system-with-primevue/components/password-input';
 import type { PasswordInputProps } from '@digital-agency-design-system-with-primevue/components/password-input';
-import { within, userEvent, expect } from '@storybook/test';
+import { within, expect } from '@storybook/test';
 import { useArgs } from '@storybook/preview-api';
 import { ref, watch } from 'vue';
 
@@ -32,6 +32,7 @@ const meta: Meta<typeof PasswordInput> = {
     invalid: false,
     placeholder: 'This is placeholder.',
     modelValue: '',
+    size: 'medium',
   } satisfies PasswordInputProps,
 
   render: (args: PasswordInputProps) => {
@@ -78,14 +79,6 @@ export default meta;
 type Story = StoryObj<typeof PasswordInput>;
 
 export const Default: Story = {
-  play: async ({ canvasElement, step }) => {
-    const canvas = within(canvasElement);
-
-    await step('tabキーを入力すると、フォーカスされること', async () => {
-      await userEvent.tab();
-      await userEvent.tab();
-    });
-  },
   args: {
     modelValue: '',
   },

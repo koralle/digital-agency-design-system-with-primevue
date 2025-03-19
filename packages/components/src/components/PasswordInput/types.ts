@@ -13,6 +13,11 @@ export interface PasswordInputProps {
   spellcheck?: boolean
   form?: string
   placeholder?: string
+  autocomplete?: string
+  minlength?: number
+  maxlength?: number
+
+  inputId?: string
 
   size?: 'small' | 'medium' | 'large'
 }
