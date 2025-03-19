@@ -1,6 +1,6 @@
 import { create } from '@storybook/theming';
 
-export default create({
+export const theme = create({
   base: 'dark',
   brandTarget: '_self',
   colorSecondary: '#3460fb',
@@ -18,5 +18,5 @@ export default create({
 
   inputTextColor: '#ffffff',
   inputBorder: '#4d4d4d',
-  inputBg: '#333333'
+  inputBg: '#1a1a1a'
 });

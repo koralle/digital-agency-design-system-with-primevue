@@ -19,6 +19,15 @@ const {
   inputMode = 'text',
   fluid = false,
   required = false,
+  spellcheck = false,
+  form = '',
+  name = '',
+  readonly = false,
+  dirname = '',
+  autocomplete = 'off',
+  autocorrect = 'off',
+  autofocus = false,
+  wrap = 'soft',
   segmenter = new Intl.Segmenter('ja', { granularity: 'grapheme' }),
 } = defineProps<TextareaProps>();
 
@@ -50,6 +59,15 @@ const counterId = computed(() => id + '-counter');
       :input-mode="inputMode"
       :fluid="fluid"
       :required="required"
+      :spellcheck="spellcheck"
+      :form="form"
+      :name="name"
+      :readonly="readonly"
+      :dirname="dirname"
+      :autocomplete="autocomplete"
+      :autocorrect="autocorrect"
+      :autofocus="autofocus"
+      :wrap="wrap"
       :class="[
         'text-solid-gray-900 bg-white h-max border border-solid-gray-600 rounded-[8px] p-[1em]',
         'hover:border-black',

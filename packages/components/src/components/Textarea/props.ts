@@ -1,18 +1,36 @@
 export interface TextareaProps {
+  // Basics
   id?: string
   class?: any
+
+  // Input
   modelValue?: string | null
   defaultValue?: string | null
+
+  // Textarea Attributes
+  autocomplete?: 'on' | 'off' | string
+  autocorrect?: 'on' | 'off'
+  autofocus?: boolean | "true" | "false"
+  cols?: number
+  dirname?: string
+  disabled?: boolean
+  form?: string
+  inputMode?: 'text' | 'none' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search'
+  invalid?: boolean
   maxlength?: number
   minlength?: number
-  disabled?: boolean
-  invalid?: boolean
-  rows?: number
-  autoResize?: boolean
+  name?: string
   placeholder?: string
-  inputMode?: 'text' | 'none' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search'
+  readonly?: boolean
+  required?: boolean
+  rows?: number
+  spellcheck?: boolean | "true" | "false"
+  wrap?: 'hard' | 'soft' | 'off'
+
+  // Derived from PrimeVue Textarea component
+  autoResize?: boolean
   fluid?: boolean
-  required?: boolean,
+
   segmenter?: Intl.Segmenter
 }
 
