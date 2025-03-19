@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import Textarea from 'primevue/textarea';
-import type { TextareaProps, TextareaEmits } from './props';
 import { computed, useId } from 'vue';
+import type { TextareaEmits, TextareaProps } from './props';
+import { useCharacterCounter } from './use-character-counter';
 
 const {
   id = useId(),
@@ -9,11 +10,16 @@ const {
   modelValue = '',
   defaultValue = '',
   maxlength = 100,
+  minlength = 0,
   disabled,
   invalid = false,
   rows = 2,
   autoResize = false,
   placeholder = '',
+  inputMode = 'text',
+  fluid = false,
+  required = false,
+  segmenter = new Intl.Segmenter('ja', { granularity: 'grapheme' }),
 } = defineProps<TextareaProps>();
 
 const emit = defineEmits<TextareaEmits>();
@@ -23,7 +29,8 @@ const handleInput = (e: Event) => {
   emit('update:modelValue', value);
 };
 
-const textCount = computed(() => modelValue?.length ?? 0);
+const textCount = computed(() => useCharacterCounter({ text: modelValue, segmenter }));
+const counterId = computed(() => id + '-counter');
 </script>
 
 <template>
@@ -33,13 +40,16 @@ const textCount = computed(() => modelValue?.length ?? 0);
       :id="id"
       :default-value="defaultValue"
       :model-value="modelValue"
-      @input="handleInput"
       :maxlength="maxlength"
+      :minlength="minlength"
       :disabled="disabled"
       :invalid="invalid"
       :rows="rows"
       :autoResize="autoResize"
       :placeholder="placeholder"
+      :input-mode="inputMode"
+      :fluid="fluid"
+      :required="required"
       :class="[
         'text-solid-gray-900 bg-white h-max border border-solid-gray-600 rounded-[8px] p-[1em]',
         'hover:border-black',
@@ -48,7 +58,10 @@ const textCount = computed(() => modelValue?.length ?? 0);
         'aria-invalid:border-red-800',
         className,
       ]"
+      :oninput="handleInput"
     />
-    <span class="text-solid-gray-900 justify-self-end">{{ textCount }} / {{ maxlength }}</span>
+    <span :id="counterId" class="text-solid-gray-600 justify-self-end" aria-live="polite">
+      {{ textCount }} / {{ maxlength }}
+    </span>
   </div>
 </template>
