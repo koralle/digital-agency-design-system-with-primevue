@@ -48,7 +48,7 @@ type Story = StoryObj<typeof Button>;
 export const Primary = {
   args: {
     label: 'プライマリボタン',
-    variant: 'tertiary',
+    variant: 'primary',
     onClick: fn(),
     disabled: false,
   },
