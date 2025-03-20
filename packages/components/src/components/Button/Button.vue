@@ -8,7 +8,7 @@ const { size = 'medium', variant = 'primary', ...rest } = defineProps<ButtonProp
 defineSlots<ButtonSlots>();
 defineEmits<ButtonEmits>();
 
-type CSSClassName = string
+type CSSClassName = string;
 
 const sizeClass = computed<CSSClassName>(() => {
   switch (size) {
@@ -29,64 +29,51 @@ const sizeClass = computed<CSSClassName>(() => {
   }
 });
 
-const variantClass = computed<{ [key in keyof Pick<ButtonPassThroughOptions, 'root' | 'icon' | 'label' | 'loadingIcon'>]: CSSClassName }>(() => {
+const variantClass = computed<{
+  [key in keyof Pick<
+    ButtonPassThroughOptions,
+    'root' | 'icon' | 'label' | 'loadingIcon'
+  >]: CSSClassName;
+}>(() => {
   switch (variant) {
     case 'primary':
       return {
         root: clsx([
           'bg-blue-900 text-white border-blue-900 border',
           'hover:bg-blue-1000',
-          'active:bg-blue-1200',
+          'active:bg-blue-1200 active:scale-95',
           'disabled:bg-solid-gray-300 disabled:text-solid-gray-50 disabled:border-solid-gray-300',
           'transition duration-300 ease-in-out',
         ]),
-        icon: clsx([
-          'text-current',
-        ]),
-        label: clsx([
-          'text-current',
-        ]),
-        loadingIcon: clsx([
-          'text-current',
-        ]),
-      }
+        icon: clsx(['text-current']),
+        label: clsx(['text-current']),
+        loadingIcon: clsx(['text-current']),
+      };
     case 'secondary':
       return {
         root: clsx([
           'bg-white text-blue-900 border-blue-900 border',
           'hover:bg-blue-200 hover:text-blue-1000',
-          'active:bg-blue-300 active:text-blue-1200',
+          'active:bg-blue-300 active:text-blue-1200 active:scale-95',
           'disabled:bg-white disabled:text-solid-gray-300 disabled:border-solid-gray-300 disabled:border',
           'transition duration-300 ease-in-out',
         ]),
-        icon: clsx([
-          'text-current',
-        ]),
-        label: clsx([
-          'text-current',
-        ]),
-        loadingIcon: clsx([
-          'text-current',
-        ]),
+        icon: clsx(['text-current']),
+        label: clsx(['text-current']),
+        loadingIcon: clsx(['text-current']),
       };
     case 'tertiary':
       return {
         root: clsx([
           'text-blue-900 bg-transparent border-transparent border',
           'hover:bg-blue-50 hover:text-blue-1000',
-          'active:bg-blue-100 active:text-blue-1200',
+          'active:bg-blue-100 active:text-blue-1200 active:scale-95',
           'disabled:bg-transparent disabled:text-solid-gray-300',
           'transition duration-300 ease-in-out',
         ]),
-        icon: clsx([
-          'text-current',
-        ]),
-        label: clsx([
-          'text-current',
-        ]),
-        loadingIcon: clsx([
-          'text-current',
-        ]),
+        icon: clsx(['text-current']),
+        label: clsx(['text-current']),
+        loadingIcon: clsx(['text-current']),
       };
   }
 });
