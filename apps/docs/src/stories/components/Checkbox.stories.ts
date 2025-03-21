@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { Checkbox } from '@digital-agency-design-system-with-primevue/components/checkbox';
 import type { CheckboxProps } from '@digital-agency-design-system-with-primevue/components/checkbox';
+import { useArgs } from '@storybook/preview-api';
+import { ref, watch } from 'vue';
 
 const meta = {
   title: 'Components / Checkbox',
@@ -30,9 +32,49 @@ type Story = StoryObj<typeof Checkbox>;
 export const Default = {
   args: {
     size: 'large',
-    disabled: true,
-    invalid: false
-  } satisfies Pick<CheckboxProps, 'size' | 'disabled' | 'invalid'>
+    disabled: false,
+    invalid: false,
+    binary: true,
+    indeterminate: false,
+  } satisfies CheckboxProps,
+  render: (args: CheckboxProps) => {
+    const [, updateArgs] = useArgs<typeof Checkbox>();
+    return {
+      components: {
+        Checkbox,
+      },
+      setup() {
+        const model = ref(args.modelValue);
+
+        watch(
+          () => args.modelValue,
+          value => {
+            model.value = value;
+          },
+        );
+
+        const handlers: (typeof Checkbox)['emits'] = {
+          'update:modelValue': (value: boolean) => updateArgs({ modelValue: value }),
+        };
+
+        return {
+          model,
+          handlers,
+          args
+        }
+      },
+      template: `<Checkbox
+        v-model="model"
+        v-on="handlers"
+        :model-value="args.modelValue"
+        :disabled="args.disabled"
+        :invalid="args.invalid"
+        :indeterminate="args.indeterminate"
+        :binary="args.binary"
+        :size="args.size"
+      />`
+    }
+  }
 } satisfies Story
 
 // export const Checked = {

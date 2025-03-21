@@ -4,21 +4,36 @@ import { Icon } from '../Icon';
 import type {
   CheckboxEmits,
   CheckboxProps,
-  CheckboxSlots,
-  CheckboxPassThroughOptions,
 } from './types';
-import { computed, defineComponent, h } from 'vue';
+import { computed, defineComponent, h, useId } from 'vue';
 import { clsx } from 'clsx';
+import type { CheckboxPassThroughOptions, CheckboxSlots } from 'primevue/checkbox'
 
 const {
+  id = useId(),
   size = 'medium',
   disabled = false,
   invalid = false,
-  ...rest
+  indeterminate = false,
+  modelValue = null,
+  defaultValue = null,
+  name = '',
+  binary = false,
+  readonly = false,
+  required = false,
+  trueValue = null,
+  falseValue = null,
+  inputId = useId(),
 } = defineProps<CheckboxProps>();
 
 defineSlots<CheckboxSlots>();
-defineEmits<CheckboxEmits>();
+const emit = defineEmits<CheckboxEmits>();
+
+const handleChange = (e: Event) => {
+  console.error('handleChange', e);
+  const value = (e.target as HTMLInputElement).checked;
+  emit('update:modelValue', value);
+};
 
 type CSSClassName = string;
 
@@ -85,8 +100,10 @@ const indeterminateCheckboxIcon = defineComponent({
 <template>
   <Checkbox
     unstyled
+    :id="id"
     :disabled="disabled"
     :invalid="invalid"
+    :model-value="modelValue"
     :pt="{
       root: () => {
         return {
@@ -98,11 +115,21 @@ const indeterminateCheckboxIcon = defineComponent({
       },
       box: []
     }"
-    :rest
+    :indeterminate="indeterminate"
+    :value="modelValue"
+    :defaultValue="defaultValue"
+    :name="name"
+    :binary="binary"
+    :readonly="readonly"
+    :required="required"
+    :trueValue="trueValue"
+    :falseValue="falseValue"
+    :inputId="inputId"
   >
     <template #icon="{ checked, indeterminate }">
       <component
-        :is="checkboxOutlineBlankIcon"
+        :is="checked ? checkboxIcon : indeterminate ? indeterminateCheckboxIcon : checkboxOutlineBlankIcon"
+        @change="handleChange"
       />
     </template>
   </Checkbox>

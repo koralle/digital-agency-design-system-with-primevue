@@ -1,9 +1,17 @@
 <script setup lang="ts">
 import InputText from 'primevue/inputtext';
-import type { InputTextProps } from './props';
+import type { InputTextProps, InputTextEmits } from './props';
 import { computed } from 'vue';
 
+
 const { size = 'medium', ...rest } = defineProps<InputTextProps>();
+
+const emit = defineEmits<InputTextEmits>();
+
+const handleInput = (e: Event) => {
+  const value = (e.target as HTMLInputElement).value;
+  emit('update:modelValue', value);
+};
 
 const sizeClass = computed(() => {
   switch (size) {
@@ -28,5 +36,6 @@ const sizeClass = computed(() => {
       sizeClass,
     ]"
     :rest
+    @input="handleInput"
   />
 </template>
