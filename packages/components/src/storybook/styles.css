@@ -1,0 +1,8 @@
+@layer theme, base, components, utilities;
+
+@import 'tailwindcss/theme.css' layer(theme) source('../stories');
+@import 'tailwindcss/utilities.css' layer(utilities);
+@import '@digital-agency-design-system-with-primevue/theme/preflight' layer(base);
+@import '@digital-agency-design-system-with-primevue/theme/design-tokens' layer(theme);
+
+@source '../components';

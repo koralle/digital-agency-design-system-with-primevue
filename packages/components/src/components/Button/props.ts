@@ -13,7 +13,19 @@ import type {
 export interface ButtonProps
   extends /* @vue-ignore */ Omit<
     PrimeButtonProps,
-    'size' | 'variant' | 'severity' | 'raised' | 'rounded' | 'text' | 'outlined' | 'unstyled' | 'loading' | 'loadingIcon' | 'badge' | 'badgeClass' | 'badgeSeverity'
+    | 'size'
+    | 'variant'
+    | 'severity'
+    | 'raised'
+    | 'rounded'
+    | 'text'
+    | 'outlined'
+    | 'unstyled'
+    | 'loading'
+    | 'loadingIcon'
+    | 'badge'
+    | 'badgeClass'
+    | 'badgeSeverity'
   > {
   size?: 'x-small' | 'small' | 'medium' | 'large';
   variant?: 'primary' | 'secondary' | 'tertiary';
@@ -33,4 +45,4 @@ export interface ButtonPassThroughAttributes extends PrimeButtonPassThroughAttri
 
 export interface ButtonPassThroughMethodOptions<T> extends PrimeButtonPassThroughMethodOptions<T> {}
 
-export type ButtonPassThroughOptionType = PrimeButtonPassThroughOptionType
+export type ButtonPassThroughOptionType = PrimeButtonPassThroughOptionType;

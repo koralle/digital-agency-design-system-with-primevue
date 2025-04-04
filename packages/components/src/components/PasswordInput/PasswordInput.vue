@@ -66,9 +66,7 @@ const sizeClass = computed(() => {
     :maxlength="maxlength"
     :pt="{
       root: () => ({
-        class: clsx([
-          'inline-flex relative',
-        ]),
+        class: clsx(['inline-flex relative']),
       }),
       pcInputText: () => ({
         root: () => ({
@@ -77,7 +75,11 @@ const sizeClass = computed(() => {
             'hover:border-black',
             'focus:outline-yellow-300 focus:outline-offset-0 focus:outline-offset-[2px] focus:inset-shadow-[4px] focus:inset-ring-black',
             'disabled:bg-solid-gray-50 disabled:text-solid-gray-420',
-            disabled ? 'disabled:border-solid-gray-300' : invalid ? 'aria-invalid:border-red-800' : 'border-solid-gray-600',
+            disabled
+              ? 'disabled:border-solid-gray-300'
+              : invalid
+                ? 'aria-invalid:border-red-800'
+                : 'border-solid-gray-600',
             sizeClass,
           ]),
         }),

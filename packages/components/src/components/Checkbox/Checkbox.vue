@@ -1,13 +1,10 @@
 <script setup lang="ts">
 import Checkbox from 'primevue/checkbox';
 import { Icon } from '../Icon';
-import type {
-  CheckboxEmits,
-  CheckboxProps,
-} from './types';
+import type { CheckboxEmits, CheckboxProps } from './types';
 import { computed, defineComponent, h, useId } from 'vue';
 import { clsx } from 'clsx';
-import type { CheckboxPassThroughOptions, CheckboxSlots } from 'primevue/checkbox'
+import type { CheckboxPassThroughOptions, CheckboxSlots } from 'primevue/checkbox';
 
 const {
   id = useId(),
@@ -63,10 +60,10 @@ const checkboxOutlineBlankIcon = defineComponent({
         class: clsx([
           sizeClass.value.icon,
           disabled ? 'text-solid-gray-300' : invalid ? 'text-error-1' : 'text-solid-gray-600',
-        ])
+        ]),
       });
-  }
-})
+  },
+});
 
 const checkboxIcon = defineComponent({
   name: 'CheckboxIcon',
@@ -74,12 +71,10 @@ const checkboxIcon = defineComponent({
     return () => {
       return h(Icon, {
         name: 'Checkbox',
-        class: clsx([
-        sizeClass.value.icon,
-      ]),
+        class: clsx([sizeClass.value.icon]),
       });
-    }
-  }
+    };
+  },
 });
 
 const indeterminateCheckboxIcon = defineComponent({
@@ -88,12 +83,10 @@ const indeterminateCheckboxIcon = defineComponent({
     return () => {
       return h(Icon, {
         name: 'IndeterminateCheckbox',
-      class: clsx([
-        sizeClass.value.icon
-      ])
+        class: clsx([sizeClass.value.icon]),
       });
-    }
-  }
+    };
+  },
 });
 </script>
 
@@ -113,7 +106,7 @@ const indeterminateCheckboxIcon = defineComponent({
       input: {
         hidden: true,
       },
-      box: []
+      box: [],
     }"
     :indeterminate="indeterminate"
     :value="modelValue"
@@ -128,7 +121,13 @@ const indeterminateCheckboxIcon = defineComponent({
   >
     <template #icon="{ checked, indeterminate }">
       <component
-        :is="checked ? checkboxIcon : indeterminate ? indeterminateCheckboxIcon : checkboxOutlineBlankIcon"
+        :is="
+          checked
+            ? checkboxIcon
+            : indeterminate
+              ? indeterminateCheckboxIcon
+              : checkboxOutlineBlankIcon
+        "
         @change="handleChange"
       />
     </template>
