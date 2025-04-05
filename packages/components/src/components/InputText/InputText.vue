@@ -23,7 +23,7 @@ const handleInput = (e: Event) => {
 
 const handleChange = (e: Event) => {
   const value = (e.target as HTMLInputElement).value
-  emit('update:modelValue', value)
+  emit('value-change', value)
 }
 
 const sizeClass = computed(() => {
