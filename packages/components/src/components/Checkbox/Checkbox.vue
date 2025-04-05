@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import Checkbox from 'primevue/checkbox';
-import { Icon } from '../Icon';
-import type { CheckboxEmits, CheckboxProps } from './types';
-import { computed, defineComponent, h, useId } from 'vue';
-import { clsx } from 'clsx';
-import type { CheckboxPassThroughOptions, CheckboxSlots } from 'primevue/checkbox';
+import Checkbox from 'primevue/checkbox'
+import { Icon } from '../Icon'
+import type { CheckboxEmits, CheckboxProps } from './types'
+import { computed, defineComponent, h, useId } from 'vue'
+import { clsx } from 'clsx'
+import type { CheckboxPassThroughOptions, CheckboxSlots } from 'primevue/checkbox'
 
 const {
   id = useId(),
@@ -21,35 +21,35 @@ const {
   trueValue = null,
   falseValue = null,
   inputId = useId(),
-} = defineProps<CheckboxProps>();
+} = defineProps<CheckboxProps>()
 
-defineSlots<CheckboxSlots>();
-const emit = defineEmits<CheckboxEmits>();
+defineSlots<CheckboxSlots>()
+const emit = defineEmits<CheckboxEmits>()
 
 const handleChange = (e: Event) => {
-  console.error('handleChange', e);
-  const value = (e.target as HTMLInputElement).checked;
-  emit('update:modelValue', value);
-};
+  console.error('handleChange', e)
+  const value = (e.target as HTMLInputElement).checked
+  emit('update:modelValue', value)
+}
 
-type CSSClassName = string;
+type CSSClassName = string
 
 const sizeClass = computed<{ [key in keyof CheckboxPassThroughOptions]: CSSClassName }>(() => {
   switch (size) {
     case 'small':
       return {
         icon: 'w-[1.5em] h-[1.5em]',
-      };
+      }
     case 'medium':
       return {
         icon: 'w-[2em] h-[2em]',
-      };
+      }
     case 'large':
       return {
         icon: 'w-[2.75em] h-[2.75em]',
-      };
+      }
   }
-});
+})
 
 const checkboxOutlineBlankIcon = defineComponent({
   name: 'CheckboxOutlineBlankIcon',
@@ -61,9 +61,9 @@ const checkboxOutlineBlankIcon = defineComponent({
           sizeClass.value.icon,
           disabled ? 'text-solid-gray-300' : invalid ? 'text-error-1' : 'text-solid-gray-600',
         ]),
-      });
+      })
   },
-});
+})
 
 const checkboxIcon = defineComponent({
   name: 'CheckboxIcon',
@@ -72,10 +72,10 @@ const checkboxIcon = defineComponent({
       return h(Icon, {
         name: 'Checkbox',
         class: clsx([sizeClass.value.icon]),
-      });
-    };
+      })
+    }
   },
-});
+})
 
 const indeterminateCheckboxIcon = defineComponent({
   name: 'IndeterminateCheckboxIcon',
@@ -84,10 +84,10 @@ const indeterminateCheckboxIcon = defineComponent({
       return h(Icon, {
         name: 'IndeterminateCheckbox',
         class: clsx([sizeClass.value.icon]),
-      });
-    };
+      })
+    }
   },
-});
+})
 </script>
 
 <template>
@@ -101,7 +101,7 @@ const indeterminateCheckboxIcon = defineComponent({
       root: () => {
         return {
           class: clsx(['text-16 w-max h-max']),
-        };
+        }
       },
       input: {
         hidden: true,

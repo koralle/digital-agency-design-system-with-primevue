@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { computed, useId } from 'vue';
-import type { PasswordInputProps, PasswordInputEmits } from './types';
-import PasswordInput from 'primevue/password';
-import { clsx } from 'clsx';
-import { Icon } from '../Icon';
+import { computed, useId } from 'vue'
+import type { PasswordInputProps, PasswordInputEmits } from './types'
+import PasswordInput from 'primevue/password'
+import { clsx } from 'clsx'
+import { Icon } from '../Icon'
 
 const {
   id = useId(),
@@ -22,25 +22,25 @@ const {
   autocomplete = 'current-password',
   minlength = 1,
   maxlength = 32,
-} = defineProps<PasswordInputProps>();
+} = defineProps<PasswordInputProps>()
 
-const emit = defineEmits<PasswordInputEmits>();
+const emit = defineEmits<PasswordInputEmits>()
 
 const handleInput = (e: Event) => {
-  const value = (e.target as HTMLTextAreaElement).value;
-  emit('update:modelValue', value);
-};
+  const value = (e.target as HTMLTextAreaElement).value
+  emit('update:modelValue', value)
+}
 
 const sizeClass = computed(() => {
   switch (size) {
     case 'small':
-      return 'h-[2.5rem]';
+      return 'h-[2.5rem]'
     case 'medium':
-      return 'h-[3rem]';
+      return 'h-[3rem]'
     case 'large':
-      return 'h-[3.5rem]';
+      return 'h-[3.5rem]'
   }
-});
+})
 </script>
 
 <template>

@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
-import { Checkbox } from '@digital-agency-design-system-with-primevue/components/checkbox';
-import type { CheckboxProps } from '@digital-agency-design-system-with-primevue/components/checkbox';
-import { useArgs } from '@storybook/preview-api';
-import { ref, watch } from 'vue';
+import type { Meta, StoryObj } from '@storybook/vue3'
+import { Checkbox } from '@digital-agency-design-system-with-primevue/components/checkbox'
+import type { CheckboxProps } from '@digital-agency-design-system-with-primevue/components/checkbox'
+import { useArgs } from '@storybook/preview-api'
+import { ref, watch } from 'vue'
 
 const meta = {
   title: 'Components / Checkbox',
@@ -22,12 +22,12 @@ const meta = {
   args: {
     binary: false,
     size: 'medium',
-  } satisfies Pick<CheckboxProps, 'binary' | 'size'>
-} satisfies Meta<typeof Checkbox>;
+  } satisfies Pick<CheckboxProps, 'binary' | 'size'>,
+} satisfies Meta<typeof Checkbox>
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof Checkbox>;
+type Story = StoryObj<typeof Checkbox>
 
 export const Default = {
   args: {
@@ -38,29 +38,29 @@ export const Default = {
     indeterminate: false,
   } satisfies CheckboxProps,
   render: (args: CheckboxProps) => {
-    const [, updateArgs] = useArgs<typeof Checkbox>();
+    const [, updateArgs] = useArgs<typeof Checkbox>()
     return {
       components: {
         Checkbox,
       },
       setup() {
-        const model = ref(args.modelValue);
+        const model = ref(args.modelValue)
 
         watch(
           () => args.modelValue,
           value => {
-            model.value = value;
+            model.value = value
           },
-        );
+        )
 
         const handlers: (typeof Checkbox)['emits'] = {
           'update:modelValue': (value: boolean) => updateArgs({ modelValue: value }),
-        };
+        }
 
         return {
           model,
           handlers,
-          args
+          args,
         }
       },
       template: `<Checkbox
@@ -72,9 +72,9 @@ export const Default = {
         :indeterminate="args.indeterminate"
         :binary="args.binary"
         :size="args.size"
-      />`
+      />`,
     }
-  }
+  },
 } satisfies Story
 
 // export const Checked = {

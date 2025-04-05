@@ -11,4 +11,4 @@ export default {
   bracketSameLine: false,
   arrowParens: 'avoid',
   endOfLine: 'lf',
-};
+}

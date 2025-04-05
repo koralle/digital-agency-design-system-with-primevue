@@ -1,2 +1,2 @@
-export { default as Icon } from './Icon.vue';
-export type { IconProps } from './props';
+export { default as Icon } from './Icon.vue'
+export type { IconProps } from './props'

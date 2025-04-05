@@ -1,4 +1,4 @@
-import type { StorybookConfig } from '@storybook/vue3-vite';
+import type { StorybookConfig } from '@storybook/vue3-vite'
 
 const config = {
   staticDirs: ['./public'],
@@ -24,6 +24,6 @@ const config = {
   core: {
     disableTelemetry: true,
   },
-} satisfies StorybookConfig;
+} satisfies StorybookConfig
 
-export default config;
+export default config

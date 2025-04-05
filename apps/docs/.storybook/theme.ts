@@ -1,15 +1,15 @@
-import { create } from '@storybook/theming';
+import { create } from '@storybook/theming'
 
 export const theme = create({
   base: 'dark',
   brandTarget: '_self',
   colorSecondary: '#3460fb',
 
-  textColor: "#ffffff",
+  textColor: '#ffffff',
 
-  appBg: "#333333",
-  appPreviewBg: "#ffffff",
-  appContentBg: "#1a1a1a",
+  appBg: '#333333',
+  appPreviewBg: '#ffffff',
+  appContentBg: '#1a1a1a',
 
   barTextColor: '#1a1a1a',
   barSelectedColor: '#0017c1',
@@ -18,5 +18,5 @@ export const theme = create({
 
   inputTextColor: '#ffffff',
   inputBorder: '#4d4d4d',
-  inputBg: '#1a1a1a'
-});
+  inputBg: '#1a1a1a',
+})

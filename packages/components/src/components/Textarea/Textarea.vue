@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import Textarea from 'primevue/textarea';
-import { computed, useId } from 'vue';
-import type { TextareaEmits, TextareaProps } from './props';
-import { useCharacterCounter } from './use-character-counter';
+import Textarea from 'primevue/textarea'
+import { computed, useId } from 'vue'
+import type { TextareaEmits, TextareaProps } from './props'
+import { useCharacterCounter } from './use-character-counter'
 
 const {
   id = useId(),
@@ -29,17 +29,17 @@ const {
   autofocus = false,
   wrap = 'soft',
   segmenter = new Intl.Segmenter('ja', { granularity: 'grapheme' }),
-} = defineProps<TextareaProps>();
+} = defineProps<TextareaProps>()
 
-const emit = defineEmits<TextareaEmits>();
+const emit = defineEmits<TextareaEmits>()
 
 const handleInput = (e: Event) => {
-  const value = (e.target as HTMLTextAreaElement).value;
-  emit('update:modelValue', value);
-};
+  const value = (e.target as HTMLTextAreaElement).value
+  emit('update:modelValue', value)
+}
 
-const textCount = computed(() => useCharacterCounter({ text: modelValue, segmenter }));
-const counterId = computed(() => id + '-counter');
+const textCount = computed(() => useCharacterCounter({ text: modelValue, segmenter }))
+const counterId = computed(() => id + '-counter')
 </script>
 
 <template>

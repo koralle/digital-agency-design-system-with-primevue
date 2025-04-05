@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { clsx } from 'clsx';
-import Button from 'primevue/button';
-import { computed } from 'vue';
-import type { ButtonEmits, ButtonPassThroughOptions, ButtonProps, ButtonSlots } from './props';
+import { clsx } from 'clsx'
+import Button from 'primevue/button'
+import { computed } from 'vue'
+import type { ButtonEmits, ButtonPassThroughOptions, ButtonProps, ButtonSlots } from './props'
 
-const { size = 'medium', variant = 'primary', ...rest } = defineProps<ButtonProps>();
-defineSlots<ButtonSlots>();
-defineEmits<ButtonEmits>();
+const { size = 'medium', variant = 'primary', ...rest } = defineProps<ButtonProps>()
+defineSlots<ButtonSlots>()
+defineEmits<ButtonEmits>()
 
-type CSSClassName = string;
+type CSSClassName = string
 
 const sizeClass = computed<CSSClassName>(() => {
   switch (size) {
@@ -16,24 +16,24 @@ const sizeClass = computed<CSSClassName>(() => {
       return clsx([
         'min-w-[4.5em] h-[1.75em] rounded-[6px] relative',
         'before:absolute before:inset-0 before:-top-[9px] before:h-[44px]',
-      ]);
+      ])
     case 'small':
       return clsx([
         'min-w-[5em] h-[2.25em] rounded-[6px] relative',
         'before:absolute before:inset-0 before:-top-[5px] before:h-[44px]',
-      ]);
+      ])
     case 'medium':
-      return 'min-w-[6em] h-[3em] rounded-[8px]';
+      return 'min-w-[6em] h-[3em] rounded-[8px]'
     case 'large':
-      return 'min-w-[8.5em] h-[3.5em] rounded-[8px]';
+      return 'min-w-[8.5em] h-[3.5em] rounded-[8px]'
   }
-});
+})
 
 const variantClass = computed<{
   [key in keyof Pick<
     ButtonPassThroughOptions,
     'root' | 'icon' | 'label' | 'loadingIcon'
-  >]: CSSClassName;
+  >]: CSSClassName
 }>(() => {
   switch (variant) {
     case 'primary':
@@ -48,7 +48,7 @@ const variantClass = computed<{
         icon: clsx(['text-current']),
         label: clsx(['text-current']),
         loadingIcon: clsx(['text-current']),
-      };
+      }
     case 'secondary':
       return {
         root: clsx([
@@ -61,7 +61,7 @@ const variantClass = computed<{
         icon: clsx(['text-current']),
         label: clsx(['text-current']),
         loadingIcon: clsx(['text-current']),
-      };
+      }
     case 'tertiary':
       return {
         root: clsx([
@@ -74,9 +74,9 @@ const variantClass = computed<{
         icon: clsx(['text-current']),
         label: clsx(['text-current']),
         loadingIcon: clsx(['text-current']),
-      };
+      }
   }
-});
+})
 </script>
 
 <template>

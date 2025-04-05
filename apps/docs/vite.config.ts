@@ -1,7 +1,7 @@
-import { defineConfig } from 'vite';
-import vue from '@vitejs/plugin-vue';
-import vueJsx from '@vitejs/plugin-vue-jsx';
-import tailwindcss from '@tailwindcss/vite';
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
+import tailwindcss from '@tailwindcss/vite'
 import { compileTemplate } from '@vue/compiler-sfc'
 import { readFile } from 'fs/promises'
 import { optimize as optimizeSvg } from 'svgo'
@@ -9,7 +9,7 @@ import type { Plugin } from 'vite'
 
 class ReadSvgFileError extends Error {
   // @ts-ignore
-  readonly #classname = "ReadSvgFileError"
+  readonly #classname = 'ReadSvgFileError'
 
   constructor(message: string, options: ErrorOptions) {
     super(message, options)
@@ -28,7 +28,7 @@ const readSvgFile = async (path: string): Promise<string | ReadSvgFileError> => 
   }
 }
 
-const vueSvgLoaderPlugin = (): Plugin  => {
+const vueSvgLoaderPlugin = (): Plugin => {
   const svgRegex = /\.svg(\?(raw|component|skipsvgo))?$/
 
   return {
@@ -65,20 +65,15 @@ const vueSvgLoaderPlugin = (): Plugin  => {
         id: JSON.stringify(path),
         source: optimizedSvg,
         filename: path,
-        transformAssetUrls: false
+        transformAssetUrls: false,
       })
 
       return `${code}\nexport default { render }`
-    }
+    },
   }
 }
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    vue(),
-    vueJsx(),
-    tailwindcss(),
-    vueSvgLoaderPlugin(),
-  ],
-});
+  plugins: [vue(), vueJsx(), tailwindcss(), vueSvgLoaderPlugin()],
+})

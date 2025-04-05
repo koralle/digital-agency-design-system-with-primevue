@@ -1,27 +1,27 @@
 export interface PasswordInputProps {
-  id?: string;
-  class?: string;
+  id?: string
+  class?: string
 
-  modelValue?: string | null;
-  defaultValue?: string | null;
+  modelValue?: string | null
+  defaultValue?: string | null
 
-  disabled?: boolean;
-  invalid?: boolean;
-  name?: string;
-  readonly?: boolean;
-  required?: boolean;
-  spellcheck?: boolean;
-  form?: string;
-  placeholder?: string;
-  autocomplete?: string;
-  minlength?: number;
-  maxlength?: number;
+  disabled?: boolean
+  invalid?: boolean
+  name?: string
+  readonly?: boolean
+  required?: boolean
+  spellcheck?: boolean
+  form?: string
+  placeholder?: string
+  autocomplete?: string
+  minlength?: number
+  maxlength?: number
 
-  inputId?: string;
+  inputId?: string
 
-  size?: 'small' | 'medium' | 'large';
+  size?: 'small' | 'medium' | 'large'
 }
 
 export interface PasswordInputEmits {
-  'update:modelValue': [value: string];
+  'update:modelValue': [value: string]
 }

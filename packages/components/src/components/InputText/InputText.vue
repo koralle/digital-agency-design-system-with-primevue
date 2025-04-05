@@ -1,31 +1,52 @@
 <script setup lang="ts">
-import InputText from 'primevue/inputtext';
-import type { InputTextProps, InputTextEmits } from './props';
-import { computed } from 'vue';
+import InputText from 'primevue/inputtext'
+import type { InputTextProps, InputTextEmits } from './types'
+import { computed, useId } from 'vue'
 
-const { size = 'medium', ...rest } = defineProps<InputTextProps>();
+const {
+  id = useId(),
+  size = 'medium',
+  disabled,
+  modelValue,
+  defaultValue,
+  invalid,
+  required,
+  placeholder,
+} = defineProps<InputTextProps>()
 
-const emit = defineEmits<InputTextEmits>();
+const emit = defineEmits<InputTextEmits>()
 
 const handleInput = (e: Event) => {
-  const value = (e.target as HTMLInputElement).value;
-  emit('update:modelValue', value);
-};
+  const value = (e.target as HTMLInputElement).value
+  emit('update:modelValue', value)
+}
+
+const handleChange = (e: Event) => {
+  const value = (e.target as HTMLInputElement).value
+  emit('update:modelValue', value)
+}
 
 const sizeClass = computed(() => {
   switch (size) {
     case 'small':
-      return 'h-[2.5rem]';
+      return 'h-[2.5rem]'
     case 'medium':
-      return 'h-[3rem]';
+      return 'h-[3rem]'
     case 'large':
-      return 'h-[3.5rem]';
+      return 'h-[3.5rem]'
   }
-});
+})
 </script>
 
 <template>
   <InputText
+    :id
+    :disabled
+    :model-value
+    :default-value
+    :invalid
+    :required
+    :placeholder
     :class="[
       'text-solid-gray-900 bg-white border border-solid-gray-600 rounded-[8px] pl-[1rem]',
       'hover:border-black',
@@ -34,7 +55,7 @@ const sizeClass = computed(() => {
       'aria-invalid:border-red-800',
       sizeClass,
     ]"
-    :rest
     @input="handleInput"
+    @change="handleChange"
   />
 </template>

@@ -8,7 +8,7 @@ import type {
   ButtonPassThroughAttributes as PrimeButtonPassThroughAttributes,
   ButtonPassThroughMethodOptions as PrimeButtonPassThroughMethodOptions,
   ButtonPassThroughOptionType as PrimeButtonPassThroughOptionType,
-} from 'primevue/button';
+} from 'primevue/button'
 
 export interface ButtonProps
   extends /* @vue-ignore */ Omit<
@@ -27,8 +27,8 @@ export interface ButtonProps
     | 'badgeClass'
     | 'badgeSeverity'
   > {
-  size?: 'x-small' | 'small' | 'medium' | 'large';
-  variant?: 'primary' | 'secondary' | 'tertiary';
+  size?: 'x-small' | 'small' | 'medium' | 'large'
+  variant?: 'primary' | 'secondary' | 'tertiary'
 }
 
 export interface ButtonPassThroughOptions extends PrimeButtonPassThroughOptions {}
@@ -45,4 +45,4 @@ export interface ButtonPassThroughAttributes extends PrimeButtonPassThroughAttri
 
 export interface ButtonPassThroughMethodOptions<T> extends PrimeButtonPassThroughMethodOptions<T> {}
 
-export type ButtonPassThroughOptionType = PrimeButtonPassThroughOptionType;
+export type ButtonPassThroughOptionType = PrimeButtonPassThroughOptionType

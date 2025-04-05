@@ -1,4 +1,4 @@
-import type { StorybookConfig } from '@storybook/vue3-vite';
+import type { StorybookConfig } from '@storybook/vue3-vite'
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
@@ -8,7 +8,7 @@ const config: StorybookConfig = {
     '@chromatic-com/storybook',
     '@storybook/experimental-addon-test',
     '@storybook/addon-a11y',
-    '@storybook/addon-mdx-gfm'
+    '@storybook/addon-mdx-gfm',
   ],
   framework: {
     name: '@storybook/vue3-vite',
@@ -19,5 +19,5 @@ const config: StorybookConfig = {
       docgen: 'vue-component-meta',
     },
   },
-};
-export default config;
+}
+export default config
