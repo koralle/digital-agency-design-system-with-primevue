@@ -4,14 +4,15 @@ import type { Booleanish, Nullable } from '../../utils'
 export interface InputTextProps /* @vue-ignore */
   extends Omit<PrimeInputTextProps, 'size' | 'unstyled' | 'dt' | 'pt' | 'ptOptions' | 'variant'> {
   id?: string
-  // Storybook の DocsでPropsとして表示して欲しいものを明示的に定義する
   disabled?: boolean
   modelValue?: Nullable<string>
   defaultValue?: Nullable<string>
   invalid?: boolean | undefined | null
   size?: 'small' | 'medium' | 'large'
   required?: Booleanish
+  readonly?: Booleanish
   placeholder?: string
+  fluid?: Nullable<boolean>
 }
 
 export interface InputTextEmits {

@@ -10,13 +10,13 @@ const dirname =
 
 // More info at: https://storybook.js.org/docs/writing-tests/test-addon
 export default defineWorkspace([
-  'vite.config.ts',
+  'vite.config.mts',
   {
-    extends: 'vite.config.ts',
+    extends: 'vite.config.mts',
     plugins: [
       // The plugin will run tests for the stories defined in your Storybook config
       // See options at: https://storybook.js.org/docs/writing-tests/test-addon#storybooktest
-      storybookTest({ configDir: path.join(dirname, '.storybook') }),
+      storybookTest({ configDir: path.join(dirname, 'src/storybook') }),
     ],
     test: {
       name: 'storybook',
@@ -26,7 +26,7 @@ export default defineWorkspace([
         name: 'chromium',
         provider: 'playwright',
       },
-      setupFiles: ['.storybook/vitest.setup.ts'],
+      setupFiles: ['src/storybook/vitest.setup.ts'],
     },
   },
 ])

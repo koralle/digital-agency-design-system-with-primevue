@@ -99,7 +99,13 @@ export const Default: Story = {
       await userEvent.type(input, 'Hello')
       await expect(input).toHaveValue('Hello')
     })
-  }
+
+    await step('`tab`キーを押下すると、入力欄にフォーカスが移動する', async () => {
+      await userEvent.tab()
+      await userEvent.tab()
+      await expect(input).toHaveFocus()
+    })
+  },
 }
 
 export const Disabled: Story = {
@@ -107,31 +113,114 @@ export const Disabled: Story = {
     disabled: true,
     modelValue: 'Disabled',
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement)
     const input = canvas.getByRole('textbox')
 
-    await expect(input).toBeDisabled()
+    await step('`disabled`が`true`の場合、入力欄が無効化される', async () => {
+      await expect(input).toBeDisabled()
+    })
   },
 }
 
 export const Invalid: Story = {
   args: {
     invalid: true,
-    modelValue: 'Invalid',
-    required: true,
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement)
     const input = canvas.getByRole('textbox')
 
-    await expect(input).toHaveAttribute('aria-invalid', 'true')
+    await step('`invalid`が`true`の場合、`aria-invalid`属性が追加される', async () => {
+      await expect(input).toBeInvalid()
+      await expect(input).toHaveAttribute('aria-invalid', 'true')
+    })
   },
 }
 
-export const Fluid = {
+export const Required: Story = {
+  args: {
+    required: true,
+  },
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement)
+    const input = canvas.getByRole('textbox')
+
+    await step('`required`が`true`の場合、`required`属性が追加される', async () => {
+      await expect(input).toBeRequired()
+    })
+  },
+}
+
+export const Type: Story = {
+  args: {
+    type: 'date',
+  },
+  render: (args: InputTextProps) => {
+    const [, updateArgs] = useArgs<typeof InputText>()
+    return {
+      components: {
+        InputText,
+      },
+      setup() {
+        const model = ref(args.modelValue)
+
+        watch(
+          () => args.modelValue,
+          value => {
+            model.value = value
+          },
+        )
+
+        const handlers: (typeof InputText)['emits'] = {
+          'update:modelValue': (value: string | undefined) => updateArgs({ modelValue: value }),
+          'value-change': (value: string | undefined) => updateArgs({ modelValue: value }),
+        }
+
+        return {
+          model,
+          handlers,
+          args,
+        }
+      },
+      template: `
+        <InputText
+          v-model="model"
+          v-on="handlers"
+          :disabled="args.disabled"
+          :invalid="args.invalid"
+          :placeholder="args.placeholder"
+          :size="args.size"
+          :required="args.required"
+          :fluid="args.fluid"
+          :type="args.type"
+        />
+      `,
+    }
+  },
+}
+
+export const Fluid: Story = {
   args: {
     fluid: true,
-    modelValue: 'Hello',
   },
-} satisfies Story
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement)
+    const input = canvas.getByRole('textbox')
+    const parentElement = input.parentElement!
+
+    await step('`fluid`が`true`の場合、入力欄の幅が親要素の幅になる', async () => {
+      const parentWidth = Number(window.getComputedStyle(parentElement).width.replace('px', ''))
+      const parentPaddingInlineStart = Number(
+        window.getComputedStyle(parentElement).paddingInlineStart.replace('px', ''),
+      )
+      const parentPaddingInlineEnd = Number(
+        window.getComputedStyle(parentElement).paddingInlineEnd.replace('px', ''),
+      )
+
+      await expect(input).toHaveStyle({
+        width: `${parentWidth - parentPaddingInlineStart - parentPaddingInlineEnd}px`,
+      })
+    })
+  },
+}

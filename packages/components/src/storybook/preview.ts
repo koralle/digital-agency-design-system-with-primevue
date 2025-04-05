@@ -9,13 +9,47 @@ setup(app => {
   })
 })
 
-const preview = {
+const preview: Preview = {
   parameters: {
     backgrounds: {
       disable: true,
     },
-    layout: 'centered',
+    layout: 'fullscreen',
   },
-} satisfies Preview
+  decorators: [
+    (_, { parameters }) => {
+      const { componentType } = parameters
+
+      switch (componentType) {
+        case 'layout':
+          return {
+            template: `
+              <div
+                :class="[
+                  'grid place-items-center',
+                  'w-[100cqi] h-[100cqb]',
+                ]"
+              >
+                <story />
+              </div>
+            `,
+          }
+        default:
+          return {
+            template: `
+              <div
+                :class="[
+                  'grid place-items-center',
+                  'w-full h-full p-[2rem]',
+                ]"
+              >
+                <story />
+              </div>
+            `,
+          }
+      }
+    },
+  ],
+}
 
 export default preview

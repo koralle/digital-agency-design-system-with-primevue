@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import InputText from 'primevue/inputtext'
-import type { InputTextProps, InputTextEmits } from './types'
 import { computed, useId } from 'vue'
+import type { InputTextEmits, InputTextProps } from './types'
+import { clsx } from 'clsx'
 
 const {
   id = useId(),
@@ -11,7 +12,9 @@ const {
   defaultValue,
   invalid,
   required,
+  readonly,
   placeholder,
+  fluid,
 } = defineProps<InputTextProps>()
 
 const emit = defineEmits<InputTextEmits>()
@@ -46,15 +49,29 @@ const sizeClass = computed(() => {
     :default-value
     :invalid
     :required
+    :readonly
+    :aria-readonly="readonly"
     :placeholder
-    :class="[
-      'text-solid-gray-900 bg-white border border-solid-gray-600 rounded-[8px] pl-[1rem]',
-      'hover:border-black',
-      'focus:outline-yellow-300 focus:outline-[2px] focus:outline-offset-[2px]',
-      'disabled:border-solid-gray-300 disabled:bg-solid-gray-50 disabled:text-solid-gray-420',
-      'aria-invalid:border-red-800',
-      sizeClass,
-    ]"
+    :fluid
+    :pt="{
+      root: () => ({
+        class: clsx(
+          'text-solid-gray-900 bg-white border rounded-[8px] px-[1rem]',
+          'hover:border-black',
+          'focus:outline-yellow-300 focus:outline-[2px] focus:outline-offset-[2px]',
+          'disabled:border-solid-gray-300 disabled:bg-solid-gray-50 disabled:text-solid-gray-420',
+          'aria-invalid:caret-error-1',
+          disabled
+            ? 'disabled:border-solid-gray-300'
+            : invalid
+              ? 'aria-invalid:border-red-800 '
+              : 'border-solid-gray-600',
+          fluid ? 'w-full' : 'w-fit',
+          'transition-all duration-300 ease-in-out',
+          sizeClass,
+        ),
+      }),
+    }"
     @input="handleInput"
     @change="handleChange"
   />

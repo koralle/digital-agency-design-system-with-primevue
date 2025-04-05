@@ -75,4 +75,9 @@ const vueSvgLoaderPlugin = (): Plugin => {
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [vue(), tailwindcss(), vueSvgLoaderPlugin()],
+  test: {
+    coverage: {
+      exclude: ['node_modules', 'dist', '**/public', '**/storybook', '**/*.stories.*'],
+    },
+  },
 })

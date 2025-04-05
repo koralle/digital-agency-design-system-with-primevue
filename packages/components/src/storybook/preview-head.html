@@ -1,0 +1,44 @@
+<link
+  rel="preload"
+  as="font"
+  type="font/woff2"
+  href="/fonts/NotoSansJP-Regular.woff2"
+  crossorigin
+/>
+<link rel="preload" as="font" type="font/woff2" href="/fonts/NotoSansJP-Bold.woff2" crossorigin />
+
+<style>
+  @font-face {
+    font-family: "Noto Sans JP";
+    src: url("/fonts/NotoSansJP-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Noto Sans JP";
+    src: url("/fonts/NotoSansJP-Bold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  :is(.sb-show-main, .sb-main-fullscreen) {
+    inline-size: 100%;
+    block-size: 100%;
+
+    display: grid !important;
+    place-items: center !important;
+  }
+
+  :where(#storybook-root) {
+    inline-size: 100%;
+    block-size: 100%;
+  }
+
+  :where(:root) {
+    font-feature-settings: "palt";
+    font-family: "Noto Sans JP";
+    letter-spacing: 0.05em;
+  }
+</style>
