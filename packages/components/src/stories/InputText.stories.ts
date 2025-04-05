@@ -90,16 +90,16 @@ export default meta
 type Story = StoryObj<typeof InputText>
 
 export const Default: Story = {
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement)
     const input = canvas.getByRole('textbox')
-    await userEvent.type(input, 'Hello')
 
-    await expect(input).toHaveValue('Hello')
-  },
-  args: {
-    size: 'medium',
-  },
+    await step("'Hello'と入力すると、'Hello'と表示される", async () => {
+      await userEvent.clear(input)
+      await userEvent.type(input, 'Hello')
+      await expect(input).toHaveValue('Hello')
+    })
+  }
 }
 
 export const Disabled: Story = {
