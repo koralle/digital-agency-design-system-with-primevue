@@ -43,6 +43,7 @@ const sizeClass = computed(() => {
 
 <template>
   <InputText
+    unstyled
     :id
     :disabled
     :model-value

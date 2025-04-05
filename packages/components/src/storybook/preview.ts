@@ -1,12 +1,15 @@
 import type { Preview } from '@storybook/vue3'
 import { setup } from '@storybook/vue3'
 import PrimeVue from 'primevue/config'
+import StyleClass from 'primevue/styleclass'
 import './styles.css'
 
 setup(app => {
   app.use(PrimeVue, {
     unstyled: true,
   })
+
+  app.directive('styleclass', StyleClass)
 })
 
 const preview: Preview = {

@@ -1,11 +1,26 @@
 <script setup lang="ts">
-import Select from 'primevue/select'
-import { computed } from 'vue'
-import type { SelectEmits, SelectProps, SelectSlots } from './props'
+import Select from 'primevue/select';
+import { computed, useId } from 'vue';
+import type { SelectEmits, SelectProps } from './types';
+import { clsx } from 'clsx'
 
-const { size = 'medium', ...rest } = defineProps<SelectProps>()
-defineSlots<SelectSlots>()
-defineEmits<SelectEmits>()
+const {
+  id = useId(),
+  disabled,
+  modelValue,
+  defaultValue,
+  invalid,
+  size = 'medium',
+  required,
+  readonly,
+  placeholder,
+  fluid,
+  labelId = useId(),
+  options = [],
+  optionLabel,
+  editable,
+ } = defineProps<SelectProps>()
+const emits = defineEmits<SelectEmits>()
 
 const sizeClass = computed(() => {
   switch (size) {
@@ -29,112 +44,93 @@ const sizeClass = computed(() => {
       }
   }
 })
+
+const handleChange = (value: any) => {
+  emits('change', value)
+}
 </script>
 
 <template>
   <Select
+    :id
+    :disabled
+    :model-value
+    :default-value
+    :invalid
+    :required
+    :readonly
+    :placeholder
+    :fluid
+
+    :labelId
+    :options
+    :option-label
+    :editable
+
     :pt="{
-      root: ({ props }) => {
-        const { disabled, invalid } = props
-        return [
-          'flex gap-[0.5em] justify-start text-16 w-max bg-white border px-[1rem]',
-          disabled
-            ? 'bg-solid-gray-50 border-solid-gray-300'
-            : invalid
-              ? 'border-red-800'
-              : 'border-solid-gray-600',
-          disabled
-            ? ''
-            : invalid
-              ? 'hover:border-red-1000 transition duration-300 ease-in-out'
-              : 'hover:border-black transition duration-300 ease-in-out',
-          sizeClass.root,
-        ]
+      root: ({ state }) => {
+        return {
+          class: clsx(
+            'text-16',
+            'inline-flex justify-between items-center gap-[0.5em]',
+            'border rounded-[8px] px-[1rem]',
+            'hover:border-black',
+            'focus:outline-yellow-300 focus:outline-[2px] focus:outline-offset-[2px]',
+            state.focused ? 'outline-yellow-300 outline-[2px] outline-offset-[2px]' : '',
+            disabled
+              ? 'bg-solid-gray-50 text-solid-gray-420 border-solid-gray-300'
+              : invalid
+                ? 'bg-white text-solid-gray-900 border-red-800 caret-error-1'
+                : 'bg-white text-solid-gray-900 border-solid-gray-600',
+            fluid ? 'w-full' : 'w-fit',
+            disabled ? '' : 'cursor-pointer',
+            'transition-[background-color,border-color] duration-300 ease-in-out',
+            sizeClass.root,
+          )
+        }
       },
-      label: ({ props }) => {
-        const { disabled } = props
-        return [
-          'flex items-center text-16',
-          disabled ? 'text-solid-gray-420' : 'text-solid-gray-800',
-        ]
-      },
-      dropdown: ({ props }) => {
-        const { disabled } = props
-        return ['flex items-center', disabled ? 'text-solid-gray-420' : 'text-solid-gray-800']
-      },
-      overlay: [
-        'bg-white border border-solid-gray-420 py-[1.5rem] shadow-(--elevation-1) mt-[4px] origin-[center_top] min-h-min',
-        'motion-reduce:transition-none',
-        sizeClass.overlay,
-      ],
-      optionCheckIcon: ['font-700 text-blue-1000'],
-      option: ({ context }) => {
-        const transition = 'transition duration-300 ease-in-out'
-        return [
-          'flex items-center text-16 gap-[0.5em] px-[1.5em]',
-          context.selected
-            ? 'bg-blue-50 font-700 text-blue-1000'
-            : context.focused
-              ? `bg-solid-gray-50 ${transition}`
-              : `bg-white ${transition} hover:bg-solid-gray-50`,
-          sizeClass.option,
-        ]
-      },
-      transition: [],
+      label: () => ({
+        class: clsx(
+          'relative border-none',
+          'text-16',
+          'inline-flex justify-start items-center',
+          'outline-none',
+          disabled ? 'text-solid-gray-420' : 'text-solid-gray-900',
+          fluid ? 'w-full' : 'w-fit',
+        )
+      }),
+      overlay: () => ({
+        class: clsx(
+          'bg-white py-[1.5rem] rounded-[8px]',
+          'mt-[0.25rem]',
+          'shadow-(--elevation-1)',
+          'motion-reduce:transition-none',
+          sizeClass.overlay,
+        )
+      }),
+      optionCheckIcon: () => ({
+        class: clsx('font-700 text-blue-1000')
+      }),
+      option: ({ context }) => ({
+        class: clsx(
+          'text-16',
+          'flex justify-start items-center gap-[0.5em] px-[1.5em]',
+          context.selected ? 'bg-blue-50 font-700 text-blue-1000'  : context.focused ? `bg-solid-gray-50` : `bg-white hover:bg-solid-gray-50`,
+          'transition-colors duration-200 ease-in-out',
+          sizeClass.option
+        )
+      }),
+      transition: () => ({
+        enterActiveClass: 'duration-300 transition-opacity ease-out',
+        enterFromClass: 'opacity-0',
+        enterToClass: 'opacity-100',
+        leaveActiveClass: 'duration-300 ease-in',
+        leaveFromClass: 'opacity-100',
+        leaveToClass: 'opacity-0',
+      })
     }"
     checkmark
-    :rest
+    @change="handleChange"
   >
-    <template #value="scope">
-      <slot name="value" v-bind="scope" />
-    </template>
-
-    <template #header="scope">
-      <slot name="header" v-bind="scope" />
-    </template>
-
-    <template #footer="scope">
-      <slot name="footer" v-bind="scope" />
-    </template>
-
-    <template #option="scope">
-      <slot name="option" v-bind="scope" />
-    </template>
-
-    <template #optiongroup="scope">
-      <slot name="optiongroup" v-bind="scope" />
-    </template>
-
-    <template #emptyfilter>
-      <slot name="emptyfilter" />
-    </template>
-
-    <template #empty>
-      <slot name="empty" />
-    </template>
-
-    <template #content="scope">
-      <slot name="content" v-bind="scope" />
-    </template>
-
-    <template #loader="scope">
-      <slot name="loader" v-bind="scope" />
-    </template>
-
-    <template #clearicon="scope">
-      <slot name="clearicon" v-bind="scope" />
-    </template>
-
-    <template #dropdownicon="scope">
-      <slot name="dropdownicon" v-bind="scope" />
-    </template>
-
-    <template #loadingicon="scope">
-      <slot name="loadingicon" v-bind="scope" />
-    </template>
-
-    <template #filtericon="scope">
-      <slot name="filtericon" v-bind="scope" />
-    </template>
   </Select>
 </template>
