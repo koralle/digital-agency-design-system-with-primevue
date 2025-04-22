@@ -1,21 +1,30 @@
 export interface CheckboxProps {
-  id?: string
-  disabled?: boolean
-  invalid?: boolean
-  indeterminate?: boolean
+  value?: any
   modelValue?: any
   defaultValue?: any
   name?: string
+  label?: string
   binary?: boolean
+  indeterminate?: boolean
+  size?: 'small' | 'medium' | 'large'
+  invalid?: boolean
+  disabled?: boolean
   readonly?: boolean
   required?: boolean
+  tabindex?: number
   trueValue?: any
   falseValue?: any
   inputId?: string
-  size?: 'small' | 'medium' | 'large'
+  ariaLabel?: string
+  ariaLabelledby?: string
+  formControl?: Record<string, any>
 }
 
 export interface CheckboxEmits {
-  (e: 'update:modelValue', value: any): void
-  (e: 'update:indeterminate', value: false): void
+  'update:modelValue': [value: any]
+  'update:indeterminate': [value: false]
+  'value-change': [value: any]
+  'change': [event: Event]
+  'blur': [event: FocusEvent]
+  'focus': [event: FocusEvent]
 }

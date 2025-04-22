@@ -1,135 +1,148 @@
 <script setup lang="ts">
-import Checkbox from 'primevue/checkbox'
-import { Icon } from '../Icon'
-import type { CheckboxEmits, CheckboxProps } from './types'
-import { computed, defineComponent, h, useId } from 'vue'
-import { clsx } from 'clsx'
-import type { CheckboxPassThroughOptions, CheckboxSlots } from 'primevue/checkbox'
+import { computed, ref, useId, watch } from 'vue'
+import { CheckboxEmits, CheckboxProps } from './types'
+import { useCheckboxClass } from './use-checkbox'
+
+import IndeterminateCheckBox from './icons/IndeterminateCheckBox.svg'
+import IndeterminateCheckBoxDisabled from './icons/IndeterminateCheckBoxDisabled.svg'
+import CheckboxDisabled from './icons/CheckboxDisabled.svg'
+import CheckboxOutlineBlankDisabled from './icons/CheckboxOutlineBlankDisabled.svg'
+import Checkbox from './icons/CheckBox.svg'
+import CheckboxOutlineBlank from './icons/CheckboxOutlineBlank.svg'
 
 const {
-  id = useId(),
-  size = 'medium',
-  disabled = false,
-  invalid = false,
-  indeterminate = false,
-  modelValue = null,
-  defaultValue = null,
+  value,
+  modelValue,
+  defaultValue,
   name = '',
-  binary = false,
-  readonly = false,
-  required = false,
-  trueValue = null,
-  falseValue = null,
+  label = '',
+  binary,
+  indeterminate,
+  size,
+  invalid,
+  disabled,
+  readonly,
+  required,
+  tabindex = 0,
+  trueValue,
+  falseValue,
   inputId = useId(),
+  ariaLabel = '',
+  ariaLabelledby = '',
+  formControl,
 } = defineProps<CheckboxProps>()
 
-defineSlots<CheckboxSlots>()
+const d_value = ref(defaultValue || modelValue)
+
+const d_indeterminate = ref(indeterminate)
+watch(d_indeterminate, (value: boolean) => {
+  d_indeterminate.value = value
+})
+
 const emit = defineEmits<CheckboxEmits>()
 
-const handleChange = (e: Event) => {
-  console.error('handleChange', e)
-  const value = (e.target as HTMLInputElement).checked
-  emit('update:modelValue', value)
+const trulyChecked = computed(() => d_indeterminate.value ? false : value === trueValue)
+const trulyAriaChecked = computed(() => d_indeterminate.value ? 'mixed' : value === trueValue)
+const trulyAriaLabel = computed(() => ariaLabel || label)
+
+const handleChange = (event: Event): void => {
+  if (disabled || readonly) {
+    return
+  }
+
+  if (d_indeterminate.value) {
+    d_indeterminate.value = false
+    emit('update:indeterminate', d_indeterminate.value)
+  }
+
+  emit('change', event)
 }
 
-type CSSClassName = string
+const handleFocus = (event: FocusEvent): void => {
+  emit('focus', event)
+}
 
-const sizeClass = computed<{ [key in keyof CheckboxPassThroughOptions]: CSSClassName }>(() => {
-  switch (size) {
-    case 'small':
-      return {
-        icon: 'w-[1.5em] h-[1.5em]',
-      }
-    case 'medium':
-      return {
-        icon: 'w-[2em] h-[2em]',
-      }
-    case 'large':
-      return {
-        icon: 'w-[2.75em] h-[2.75em]',
-      }
-  }
-})
+const handleBlur = (event: FocusEvent): void => {
+  emit('blur', event)
+}
 
-const checkboxOutlineBlankIcon = defineComponent({
-  name: 'CheckboxOutlineBlankIcon',
-  setup() {
-    return () =>
-      h(Icon, {
-        name: 'CheckboxOutlineBlank',
-        class: clsx([
-          sizeClass.value.icon,
-          disabled ? 'text-solid-gray-300' : invalid ? 'text-error-1' : 'text-solid-gray-600',
-        ]),
-      })
-  },
-})
-
-const checkboxIcon = defineComponent({
-  name: 'CheckboxIcon',
-  setup() {
-    return () => {
-      return h(Icon, {
-        name: 'Checkbox',
-        class: clsx([sizeClass.value.icon]),
-      })
-    }
-  },
-})
-
-const indeterminateCheckboxIcon = defineComponent({
-  name: 'IndeterminateCheckboxIcon',
-  setup() {
-    return () => {
-      return h(Icon, {
-        name: 'IndeterminateCheckbox',
-        class: clsx([sizeClass.value.icon]),
-      })
-    }
-  },
+const useCheckboxClassResult = useCheckboxClass({
+  size: computed(() => size),
+  indeterminate: d_indeterminate,
+  invalid: computed(() => invalid),
+  disabled: computed(() => disabled),
 })
 </script>
 
 <template>
-  <Checkbox
-    unstyled
-    :id="id"
-    :disabled="disabled"
-    :invalid="invalid"
-    :model-value="modelValue"
-    :pt="{
-      root: () => {
-        return {
-          class: clsx(['text-16 w-max h-max']),
-        }
-      },
-      input: {
-        hidden: true,
-      },
-      box: [],
-    }"
-    :indeterminate="indeterminate"
-    :value="modelValue"
-    :defaultValue="defaultValue"
-    :name="name"
-    :binary="binary"
-    :readonly="readonly"
-    :required="required"
-    :trueValue="trueValue"
-    :falseValue="falseValue"
-    :inputId="inputId"
-  >
-    <template #icon="{ checked, indeterminate }">
-      <component
-        :is="
-          checked
-            ? checkboxIcon
-            : indeterminate
-              ? indeterminateCheckboxIcon
-              : checkboxOutlineBlankIcon
-        "
-        @change="handleChange"
+  <label :class="[useCheckboxClassResult.rootClass]">
+    <input
+      :id="inputId"
+      :value
+      :modelValue
+      :defaultValue
+      :name
+      :disabled
+      :readonly
+      :required
+      :tabindex
+      :aria-invalid="invalid"
+      :aria-label="trulyAriaLabel"
+      :aria-labelledby="ariaLabelledby"
+      :aria-checked="trulyAriaChecked"
+      type="checkbox"
+      @focus="handleFocus"
+      @blur="handleBlur"
+      @change="handleChange"
+      :class="[
+        'fixed!',
+        'inset-0!',
+        'contain-strict!',
+        'h-[4px]!',
+        'w-[4px]!',
+        'opacity-0!',
+        'm-0!',
+        'p-0!',
+        'hidden!',
+        'border-0!',
+        'pointer-events-none!',
+      ]"
+      @keypress.space="handleChange"
+    />
+    <div :class="[useCheckboxClassResult.boxClass]">
+      <CheckboxOutlineBlank
+        v-if="!trulyChecked && !d_indeterminate && !disabled"
+        :class="[useCheckboxClassResult.outlineBlankIconClass]"
+        :tabindex="tabindex"
       />
-    </template>
-  </Checkbox>
+      <CheckboxOutlineBlankDisabled
+        v-else-if="!trulyChecked && !d_indeterminate && disabled"
+        :class="[useCheckboxClassResult.outlineBlankIconClass]"
+        :tabindex="-1"
+      />
+      <IndeterminateCheckBox
+        v-else-if="!trulyChecked && d_indeterminate && !disabled"
+        :class="[useCheckboxClassResult.indeterminateIconClass]"
+        :tabindex="tabindex"
+      />
+      <IndeterminateCheckBoxDisabled
+        v-else-if="!trulyChecked && d_indeterminate && disabled"
+        :class="[useCheckboxClassResult.indeterminateIconClass]"
+        :tabindex="-1"
+      />
+      <Checkbox
+        v-else-if="trulyChecked && !d_indeterminate && !disabled"
+        :class="[useCheckboxClassResult.checkboxIconClass]"
+        :tabindex="tabindex"
+      />
+      <CheckboxDisabled
+        v-else-if="trulyChecked && !d_indeterminate && disabled"
+        :class="[useCheckboxClassResult.checkboxIconClass]"
+        :tabindex="-1"
+      />
+    </div>
+    <span :class="[useCheckboxClassResult.labelClass]">
+      {{ label }}
+    </span>
+  </label>
 </template>

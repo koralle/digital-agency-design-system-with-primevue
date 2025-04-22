@@ -30,3 +30,14 @@ export const useComponentCssClass =
       )
       return resolverFn(plainArgs)
     })
+
+export type ComponentProps<T extends object> = T extends {
+  dt?: unknown
+  pt?: unknown
+  ptOptions?: unknown
+  unstyled?: boolean
+} ? Omit<T, 'dt' | 'pt' | 'ptOptions' | 'unstyled'> :  T
+
+type ResolverArguments<T extends object> = { [key in keyof ComponentProps<T>]: Ref<ComponentProps<T>[key]>}
+
+export const useComponentClass = <T extends object, U extends object>(resolverFn: (args: ResolverArguments<T>) => U) => (args: ResolverArguments<T>) => computed<U>(() => resolverFn(args))
