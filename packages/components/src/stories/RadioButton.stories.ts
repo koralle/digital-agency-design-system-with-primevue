@@ -5,7 +5,6 @@ import { useArgs } from '@storybook/preview-api'
 import { ref, watch } from 'vue'
 import { within, userEvent, expect } from '@storybook/test'
 import { RadioButtonGroup } from '../components/RadioButtonGroup'
-import { TabStyle } from 'primevue'
 
 const meta = {
   title: 'Components / RadioButton',
@@ -62,7 +61,7 @@ const meta = {
     },
   },
   args: {
-    value: true,
+    value: 'checked',
     size: 'medium',
     label: 'オプション',
     invalid: false,
@@ -268,6 +267,12 @@ export const Group: Story = {
       control: 'select',
       options: ['option1', 'option2', 'option3'],
     },
+    invalid: {
+      control: 'boolean',
+    },
+    disabled: {
+      control: 'boolean',
+    },
     binary: {
       table: {
         disable: true
@@ -296,8 +301,9 @@ export const Group: Story = {
   },
   args: {
     modelValue: 'option1',
-    defaultValue: 'option1',
-    binary: false
+    binary: false,
+    invalid: false,
+    disabled: false,
   },
   render: (args: RadioButtonProps) => {
     const [, updateArgs] = useArgs<typeof RadioButton>()
@@ -326,37 +332,35 @@ export const Group: Story = {
         }
       },
       template: `
-      <div>
         <div>
-          <RadioButton
-            v-model="model"
-            v-on="handlers"
-            name="group"
-            value="option1"
-            :invalid="args.invalid"
-            :default-value="args.defaultValue"
-            label="オプション1"
-          />
-          <RadioButton
-            v-model="model"
-            v-on="handlers"
-            name="group"
-            value="option2"
-            :invalid="args.invalid"
-            :default-value="args.defaultValue"
-            label="オプション2"
-          />
-          <RadioButton
-            v-model="model"
-            v-on="handlers"
-            name="group"
-            value="option3"
-            :invalid="args.invalid"
-            label="オプション3"
-          />
+          <div>
+            <RadioButton
+              v-model="model"
+              v-on="handlers"
+              name="group"
+              value="option1"
+              :invalid="args.invalid"
+              label="オプション1"
+            />
+            <RadioButton
+              v-model="model"
+              v-on="handlers"
+              name="group"
+              value="option2"
+              :invalid="args.invalid"
+              label="オプション2"
+            />
+            <RadioButton
+              v-model="model"
+              v-on="handlers"
+              name="group"
+              value="option3"
+              :invalid="args.invalid"
+              label="オプション3"
+            />
+          </div>
+          <div>選択値: {{ model }}</div>
         </div>
-        <div>選択値: {{ model }}</div>
-      </div>
       `,
     }
   },

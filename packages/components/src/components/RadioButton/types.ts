@@ -1,7 +1,7 @@
 import type { RadioButtonProps as PrimeVueRadioButtonProps } from 'primevue/radiobutton'
 import { ComponentProps } from '../../utils/component'
 
-export interface RadioButtonProps<T = boolean>
+export interface RadioButtonProps<T = string>
   extends /* @vue-ignore */ Omit<
     ComponentProps<PrimeVueRadioButtonProps>,
     'variant' | 'inputStyle' | 'inputClass' | 'formControl'
@@ -13,8 +13,6 @@ export interface RadioButtonProps<T = boolean>
     value?: T
 
     modelValue?: T
-
-    defaultValue?: T
 
     name?: string
 
