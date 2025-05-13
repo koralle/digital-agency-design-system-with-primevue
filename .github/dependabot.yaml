@@ -1,0 +1,23 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "./apps/docs"
+    schedule:
+      interval: "daily"
+      timezone: "Asia/Tokyo"
+    open-pull-requests-limit: 10
+    groups:
+      storybook:
+        dependency-type: "development"
+        patterns:
+          - "storybook"
+          - "@storybook/*"
+      vitest:
+        dependency-type: "development"
+        patterns:
+          - "vitest"
+          - "@vitest/*"
+      tailwindcss:
+        patterns:
+          - "tailwindcss"
+          - "@tailwindcss/*"
