@@ -44,7 +44,7 @@
     "remark-gfm": "^4.0.1",
     "storybook": "^8.6.7",
     "svgo": "^3.3.2",
-    "typescript": "^5.8.2",
+    "typescript": "^5.8.3",
     "unplugin-icons": "^22.1.0",
     "unplugin-vue-components": "^28.4.1",
     "vite": "^6.2.0",
