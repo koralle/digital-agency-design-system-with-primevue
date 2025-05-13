@@ -1,0 +1,37 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directories:
+      - /
+      - /apps/docs
+      - /packages/components
+      - /packages/theme
+    schedule:
+      interval: "daily"
+      timezone: "Asia/Tokyo"
+    open-pull-requests-limit: 10
+    groups:
+      storybook:
+        patterns:
+          - storybook
+          - "@storybook/*"
+        update-types:
+          - minor
+          - patch
+      vitest:
+        patterns:
+          - vitest
+          - "@vitest/*"
+        update-types:
+          - minor
+          - patch
+      tailwindcss:
+        patterns:
+          - tailwindcss
+          - "@tailwindcss/*"
+        update-types:
+          - minor
+          - patch
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
