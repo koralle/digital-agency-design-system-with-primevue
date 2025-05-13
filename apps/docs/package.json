@@ -13,7 +13,7 @@
   "dependencies": {
     "@digital-agency-design-system-with-primevue/components": "workspace:*",
     "@digital-agency-design-system-with-primevue/theme": "workspace:*",
-    "tailwindcss": "^4.0.9",
+    "tailwindcss": "^4.1.6",
     "vue": "^3.5.13"
   },
   "devDependencies": {
@@ -32,7 +32,7 @@
     "@storybook/theming": "^8.6.7",
     "@storybook/vue3": "^8.6.7",
     "@storybook/vue3-vite": "^8.6.7",
-    "@tailwindcss/vite": "^4.0.9",
+    "@tailwindcss/vite": "^4.1.6",
     "@types/node": "^22.13.9",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vitejs/plugin-vue-jsx": "^4.1.1",
