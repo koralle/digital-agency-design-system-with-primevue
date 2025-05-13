@@ -1,0 +1,13 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "./apps/docs"
+    schedule:
+      interval: "daily"
+      timezone: "Asia/Tokyo"
+    open-pull-requests-limit: 10
+    groups:
+      dependencies:
+        patterns:
+          - "*storybook*"
+          - "vitest"
