@@ -11,7 +11,7 @@ updates:
       timezone: "Asia/Tokyo"
     open-pull-requests-limit: 10
     groups:
-      Storybook:
+      storybook:
         patterns:
           - storybook
           - "@storybook/*"
