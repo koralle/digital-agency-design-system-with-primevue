@@ -18,14 +18,14 @@ updates:
         update-types:
           - minor
           - patch
-      vitest:
+      Vitest:
         patterns:
           - vitest
           - "@vitest/*"
         update-types:
           - minor
           - patch
-      tailwindcss:
+      Tailwind CSS:
         patterns:
           - tailwindcss
           - "@tailwindcss/*"
